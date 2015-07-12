@@ -6,19 +6,21 @@ import sys
 import os
 import smtplib
 import config
+import pdb
 
 # Craigslist search URL
-BASE_URL = ('http://chicago.craigslist.org/search/'
-            '?sort=rel&areaID=11&subAreaID=&query={0}&catAbb=sss')
+BASE_URL = ('http://vancouver.craigslist.org/search/'
+            'hhh?sort=rel&max_price=1500&bedrooms=2&query={0}')
 
 def parse_results(search_term):
+    #pdb.set_trace()
     results = []
     search_term = search_term.strip().replace(' ', '+')
     search_url = BASE_URL.format(search_term)
     soup = BeautifulSoup(urlopen(search_url).read())
     rows = soup.find('div', 'content').find_all('p', 'row')
     for row in rows:
-        url = 'http://chicago.craigslist.org' + row.a['href']
+        url = 'http://vancouver.craigslist.org' + row.a['href']
         # price = row.find('span', class_='price').get_text()
         create_date = row.find('time').get('datetime')
         title = row.find_all('a')[1].get_text()
@@ -52,12 +54,24 @@ def has_new_records(results):
     return is_new
 
 def send_text(phone_number, msg):
-    fromaddr = "Craigslist Checker"
-    toaddrs = phone_number + "@txt.att.net"
+    # fromaddr = "Craigslist Checker"
+    # toaddrs = phone_number + "@fido.ca"
+    # msg = ("From: {0}\r\nTo: {1}\r\n\r\n{2}").format(fromaddr, toaddrs, msg)
+    # server = smtplib.SMTP('smtp.gmail.com:587')
+    # server.ehlo()
+    # server.starttls()
+    # server.login(config.email['am.sharifian@gmail.com'], config.email['awyphqjamzeucopy'])
+    # server.sendmail(fromaddr, toaddrs, msg)
+    # server.quit()
+    fromaddr = 'am.sharifian@gmail.com'
+    toaddrs = phone_number + '@fido.ca'
     msg = ("From: {0}\r\nTo: {1}\r\n\r\n{2}").format(fromaddr, toaddrs, msg)
+    username = 'am.sharifian@gmail.com'
+    password = 'awyphqjamzeucopy'
     server = smtplib.SMTP('smtp.gmail.com:587')
+    server.ehlo()
     server.starttls()
-    server.login(config.email['username'], config.email['password'])
+    server.login(username,password)
     server.sendmail(fromaddr, toaddrs, msg)
     server.quit()
 
@@ -79,7 +93,9 @@ if __name__ == '__main__':
     results = parse_results(TERM)
     
     # Send the SMS message if there are new results
-    if has_new_records(results):
+    if not results:
+        print "Incorrect search !"
+    elif has_new_records(results):
         message = "Hey - there are new Craigslist posts for: {0}".format(TERM.strip())
         print "[{0}] There are new results - sending text message to {0}".format(get_current_time(), PHONE_NUMBER)
         send_text(PHONE_NUMBER, message)
