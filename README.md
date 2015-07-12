@@ -17,3 +17,8 @@ Usage
     python craigslist-checker.py <search-term> <phone-number>
 
 It's useful to setup a cronjob that will run the script every N minutes.
+
+Setting up cron job
+----
+Put a shell script in one of these folders:
+    /etc/cron.daily, /etc/cron.hourly, /etc/cron.monthly or /etc/cron.weekly.
