@@ -46,3 +46,5 @@ or every 15 minutes
 Note that the day-of-week goes from 0-6 where 0 is sunday.
 
 You can read more [here](https://help.ubuntu.com/community/CronHowto).
+
+<sup>(Thanks from [askubuntu](http://askubuntu.com/a/2369/309318) for learning corn job)</sup>
