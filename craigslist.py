@@ -63,11 +63,11 @@ def send_text(phone_number, msg):
     # server.login(config.email['am.sharifian@gmail.com'], config.email['awyphqjamzeucopy'])
     # server.sendmail(fromaddr, toaddrs, msg)
     # server.quit()
-    fromaddr = 'am.sharifian@gmail.com'
+    fromaddr = 'your_email@gmail.com'
     toaddrs = phone_number + '@fido.ca'
     msg = ("From: {0}\r\nTo: {1}\r\n\r\n{2}").format(fromaddr, toaddrs, msg)
-    username = 'am.sharifian@gmail.com'
-    password = 'awyphqjamzeucopy'
+    username = 'your_email@gmail.com'
+    password = '<your_password>'
     server = smtplib.SMTP('smtp.gmail.com:587')
     server.ehlo()
     server.starttls()
