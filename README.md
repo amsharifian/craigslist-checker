@@ -14,7 +14,7 @@ Install the required libraries via pip:
 
 Usage
 -----
-    python craigslist-checker.py <search-term> <phone-number>
+    python craigslist.py <search-term> <phone-number>
 
 It's useful to setup a cronjob that will run the script every N minutes.
 
@@ -26,7 +26,7 @@ Put a shell script in one of these folders:
     
 If these are not enough for you you can add more specific tasks eg. twice a month or every 5 minutes or... go to the terminal and type:
     
-    corntab -e
+    crontab -e
     
 this will open your personal crontab (cron configuration file), the first line in that file explains it all (don't you think)! In every line you can define one command to run, and the format is quite simple when you get the hang of it. So the structure is:
 
